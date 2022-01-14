@@ -12,6 +12,7 @@ import Header from '../components/Header';
 const LoginScreen = () => {
 
   const [login, setLogin] = useState("");
+  const [invalidLogin, setInvalidLogin] = useState("");
   const [emptyLogin, setEmptyLogin] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false)
@@ -21,11 +22,11 @@ const LoginScreen = () => {
     <div className='wrapper'>
       <Header />
       <form >
-        {error && <ErrorMessage mail={login} />}
+        {error && <ErrorMessage mail={invalidLogin} />}
         <label className='labelText'>
           Логин
           <CustomInput
-            style={emptyLogin ? { marginBottom: 8 } : {}}
+            style={emptyLogin ? { marginBottom: 8, border: '1px solid #E26F6F', caretColor: '#E26F6F' } : {}}
             onClick={() => { setError(false); setEmptyLogin(false) }}
             value={login}
             onChange={e => setLogin(e.target.value)} />
@@ -47,6 +48,7 @@ const LoginScreen = () => {
             }
             if (login != '12345' && login.length > 0) {
               setError(true)
+              setInvalidLogin(login)
             } else if (login == '12345') {
               navigate(PATHS.PROFILE)
             }
